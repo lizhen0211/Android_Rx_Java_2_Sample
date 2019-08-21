@@ -60,4 +60,38 @@ public class SimpleDemoActivity extends AppCompatActivity {
         //订阅
         observable.subscribe(observer);
     }
+
+    public void onChainDemoClick(View view) {
+        //链式结构
+        Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                emitter.onNext(1);
+                emitter.onNext(2);
+                emitter.onNext(3);
+                emitter.onComplete();
+                emitter.onNext(4);
+            }
+        }).subscribe(new Observer<Integer>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                Log.e(TAG, "observer subscribe");
+            }
+
+            @Override
+            public void onNext(Integer value) {
+                Log.e(TAG, "" + value);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e(TAG, "error");
+            }
+
+            @Override
+            public void onComplete() {
+                Log.e(TAG, "complete");
+            }
+        });
+    }
 }
