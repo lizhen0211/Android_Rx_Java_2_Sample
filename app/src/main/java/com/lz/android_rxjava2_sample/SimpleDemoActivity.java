@@ -14,6 +14,8 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 
 public class SimpleDemoActivity extends AppCompatActivity {
 
@@ -200,6 +202,36 @@ public class SimpleDemoActivity extends AppCompatActivity {
 
             @Override
             public void onComplete() {
+                Log.e(TAG, "complete");
+            }
+        });
+    }
+
+    public void onSubscribeClick(View view) {
+        Observable<Integer> observable = Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                emitter.onNext(1);
+                emitter.onNext(2);
+                emitter.onNext(3);
+                emitter.onComplete();
+                emitter.onNext(4);
+            }
+        });
+        //其他订阅重载方法
+        Disposable disposable = observable.subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                Log.e(TAG, "onNext: " + integer);
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                Log.e(TAG, "error");
+            }
+        }, new Action() {
+            @Override
+            public void run() throws Exception {
                 Log.e(TAG, "complete");
             }
         });
