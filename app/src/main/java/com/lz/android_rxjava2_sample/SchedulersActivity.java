@@ -19,6 +19,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
+import retrofit2.Response;
 
 public class SchedulersActivity extends AppCompatActivity {
 
@@ -159,27 +160,31 @@ public class SchedulersActivity extends AppCompatActivity {
      */
     public void onSchedulerNetClick2(View view) throws IOException {
         LoginRequest request = new LoginRequest();
-        Observable<ResponseBody> observable = request.login("lz", "123456");
+        Observable<Response<ResponseBody>> observable = request.login("lz", "123456");
         observable.subscribeOn(Schedulers.io())               //在IO线程进行网络请求
                 .observeOn(AndroidSchedulers.mainThread())  //回到主线程去处理请求结果
-                .subscribe(new Observer<ResponseBody>() {
+                .subscribe(new Observer<Response<ResponseBody>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                     }
 
                     @Override
-                    public void onNext(ResponseBody responseBody) {
-
+                    public void onNext(Response<ResponseBody> response) {
+                        if (response.isSuccessful()) {
+                            Log.e(TAG, "onNext: success" + response.toString());
+                        } else {
+                            Log.e(TAG, "onNext: failed" + response.toString());
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Toast.makeText(SchedulersActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "onError: failed" + e.getMessage());
                     }
 
                     @Override
                     public void onComplete() {
-                        Toast.makeText(SchedulersActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "onComplete: success");
                     }
                 });
     }
