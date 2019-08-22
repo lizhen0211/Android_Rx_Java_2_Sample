@@ -4,13 +4,21 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
+
+import com.lz.android_rxjava2_sample.net.LoginRequest;
+
+import java.io.IOException;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
 
 public class SchedulersActivity extends AppCompatActivity {
 
@@ -73,9 +81,10 @@ public class SchedulersActivity extends AppCompatActivity {
                 Log.e(TAG, "onNext: " + integer);
             }
         };
-
-        observable.subscribeOn(Schedulers.newThread())//指定上游发送事件的线程
-                .observeOn(AndroidSchedulers.mainThread())//指定下游接收时间线程
+        //指定上游发送事件的线程
+        observable.subscribeOn(Schedulers.newThread())
+                //指定下游接收时间线程
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(consumer);
     }
 
@@ -148,28 +157,31 @@ public class SchedulersActivity extends AppCompatActivity {
      *
      * @param view
      */
-    public void onSchedulerNetClick2(View view) {
-        /*Api api = retrofit.create(Api.class);
-        api.login(request)
-                .subscribeOn(Schedulers.io())               //在IO线程进行网络请求
+    public void onSchedulerNetClick2(View view) throws IOException {
+        LoginRequest request = new LoginRequest();
+        Observable<ResponseBody> observable = request.login("lz", "123456");
+        observable.subscribeOn(Schedulers.io())               //在IO线程进行网络请求
                 .observeOn(AndroidSchedulers.mainThread())  //回到主线程去处理请求结果
-                .subscribe(new Observer<LoginResponse>() {
+                .subscribe(new Observer<ResponseBody>() {
                     @Override
-                    public void onSubscribe(Disposable d) {}
+                    public void onSubscribe(Disposable d) {
+                    }
 
                     @Override
-                    public void onNext(LoginResponse value) {}
+                    public void onNext(ResponseBody responseBody) {
+
+                    }
 
                     @Override
                     public void onError(Throwable e) {
-                        Toast.makeText(mContext, "登录失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SchedulersActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onComplete() {
-                        Toast.makeText(mContext, "登录成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SchedulersActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                     }
-                });*/
+                });
     }
 
 
