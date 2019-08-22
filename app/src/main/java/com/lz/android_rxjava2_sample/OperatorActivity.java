@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.lz.android_rxjava2_sample.net.LoginRequest;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -13,8 +16,13 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
+import retrofit2.Response;
 
 public class OperatorActivity extends AppCompatActivity {
 
@@ -35,7 +43,7 @@ public class OperatorActivity extends AppCompatActivity {
      * @param view
      */
     public void onMapOperatorClick(View view) {
-        Observable.create(new ObservableOnSubscribe<Integer>() {
+        Disposable disposable = Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
                 emitter.onNext(1);
@@ -65,7 +73,7 @@ public class OperatorActivity extends AppCompatActivity {
      * @param view
      */
     public void onFlatMapOperatorClick(View view) {
-        Observable.create(new ObservableOnSubscribe<Integer>() {
+        Disposable disposable = Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
                 emitter.onNext(1);
@@ -99,7 +107,7 @@ public class OperatorActivity extends AppCompatActivity {
      * @param view
      */
     public void onConcatMapOperatorClick(View view) {
-        Observable.create(new ObservableOnSubscribe<Integer>() {
+        Disposable disposable = Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
                 emitter.onNext(1);
@@ -122,5 +130,103 @@ public class OperatorActivity extends AppCompatActivity {
                 Log.e(TAG, s);
             }
         });
+    }
+
+    /**
+     * 不使用操作符的注册方法
+     *
+     * @throws IOException
+     */
+    private void register() throws IOException {
+        LoginRequest request = new LoginRequest();
+        Observable<Response<ResponseBody>> observable = request.register("lz", "123456", "13900000000");
+        Disposable disposable = observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Response<ResponseBody>>() {
+
+                    @Override
+                    public void accept(Response<ResponseBody> response) throws Exception {
+                        Log.e(TAG, "注册成功");
+                        if (response.isSuccessful()) {
+                            //注册成功里调用登陆
+                            login();
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Log.e(TAG, "注册失败");
+                    }
+                });
+    }
+
+    /**
+     * 不适用操作符的登陆方法
+     *
+     * @throws IOException
+     */
+    private void login() throws IOException {
+        LoginRequest request = new LoginRequest();
+        Observable<Response<ResponseBody>> observable = request.login("lz", "123456");
+        Disposable disposable = observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Response<ResponseBody>>() {
+
+                    @Override
+                    public void accept(Response<ResponseBody> response) throws Exception {
+                        Log.e(TAG, "登录成功");
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Log.e(TAG, "登录失败");
+                    }
+                });
+    }
+
+    public void onRegisterDemoClick(View view) throws IOException {
+        //不使用操作符的注册及登陆调用
+        //register();
+
+        //使用flatmap 操作符的注册及登陆调用
+        final LoginRequest request = new LoginRequest();
+        Disposable disposable = request.register("lz", "123456", "13900000000")
+                //在IO线程进行网络请求
+                .subscribeOn(Schedulers.io())
+                //回到主线程去处理请求注册结果
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(new Consumer<Response<ResponseBody>>() {
+                    @Override
+                    public void accept(Response<ResponseBody> responseBody) throws Exception {
+                        if (responseBody.isSuccessful()) {
+                            Log.e(TAG, "注册成功");
+                        }
+                    }
+                })
+                //回到IO线程去发起登录请求
+                .observeOn(Schedulers.io())
+                .flatMap(new Function<Response<ResponseBody>, ObservableSource<Response<ResponseBody>>>() {
+                    @Override
+                    public ObservableSource<Response<ResponseBody>> apply(Response<ResponseBody> responseBody) throws Exception {
+                        //将上游的注册结果 转换成 登陆结果
+                        return request.login("lz", "123456");
+                    }
+                })
+                //回到主线程去处理请求登录的结果
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Response<ResponseBody>>() {
+                    @Override
+                    public void accept(Response<ResponseBody> responseBody) throws Exception {
+                        if(responseBody.isSuccessful()){
+                            Log.e(TAG, "登录成功");
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Log.e(TAG, "登录失败");
+                    }
+                });
+
     }
 }

@@ -31,6 +31,8 @@ public class LoginRequest {
     public Observable<Response<ResponseBody>> register(String username, String password, String telephone) throws IOException {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://httpbin.org/")
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         LoginService service = retrofit.create(LoginService.class);
