@@ -142,4 +142,35 @@ public class SchedulersActivity extends AppCompatActivity {
          * AndroidSchedulers.mainThread() 代表Android的主线程
          */
     }
+
+    /**
+     * 网络请求与UI刷新通过 scheduler 切换
+     *
+     * @param view
+     */
+    public void onSchedulerNetClick2(View view) {
+        /*Api api = retrofit.create(Api.class);
+        api.login(request)
+                .subscribeOn(Schedulers.io())               //在IO线程进行网络请求
+                .observeOn(AndroidSchedulers.mainThread())  //回到主线程去处理请求结果
+                .subscribe(new Observer<LoginResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {}
+
+                    @Override
+                    public void onNext(LoginResponse value) {}
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(mContext, "登录失败", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Toast.makeText(mContext, "登录成功", Toast.LENGTH_SHORT).show();
+                    }
+                });*/
+    }
+
+
 }
