@@ -39,4 +39,15 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/scheduler_switch_btn_1" />
 
+    <Button
+        android:id="@+id/scheduler_net_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:onClick="onSchedulerNetClick2"
+        android:text="Scheduler Net"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scheduler_switch_btn_2" />
+
 </android.support.constraint.ConstraintLayout>

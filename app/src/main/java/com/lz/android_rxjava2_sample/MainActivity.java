@@ -22,4 +22,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, SchedulersActivity.class);
         startActivity(intent);
     }
+
+    public void onOperatorClick(View view) {
+        Intent intent = new Intent(MainActivity.this, OperatorActivity.class);
+        startActivity(intent);
+    }
 }
