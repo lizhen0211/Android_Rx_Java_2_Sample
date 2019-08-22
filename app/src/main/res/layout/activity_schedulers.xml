@@ -4,28 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".SchedulersActivity">
 
     <Button
-        android:id="@+id/simple_demo_btn"
+        android:id="@+id/default_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="a simple demo"
-        android:onClick="onSimpleDemoClick"
+        android:onClick="onDefaultClick"
+        android:text="default thread"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/schedulers_demo_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="schedulers demo"
-        android:onClick="onSchedulersClick"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/simple_demo_btn" />
 
 </android.support.constraint.ConstraintLayout>

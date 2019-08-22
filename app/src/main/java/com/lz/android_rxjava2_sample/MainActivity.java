@@ -17,4 +17,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, SimpleDemoActivity.class);
         startActivity(intent);
     }
+
+    public void onSchedulersClick(View view) {
+        Intent intent = new Intent(MainActivity.this, SchedulersActivity.class);
+        startActivity(intent);
+    }
 }
