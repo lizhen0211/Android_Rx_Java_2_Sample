@@ -39,7 +39,7 @@ public class MapOperatorActivity extends AppCompatActivity {
     }
 
     /**
-     * map 操作符
+     * map 转换操作符
      * <p>
      * 对上游发送的每一个事件应用一个函数
      * 将上游接口数据，转换成下游接口需要的数据
@@ -69,7 +69,7 @@ public class MapOperatorActivity extends AppCompatActivity {
     }
 
     /**
-     * flatMap 操作符
+     * flatMap 转换操作符
      * <p>
      * 将一个发送事件的上游Observable变换为多个发送事件的Observables
      * 然后将它们发射的事件合并后放进一个单独的Observable里
@@ -103,7 +103,7 @@ public class MapOperatorActivity extends AppCompatActivity {
     }
 
     /**
-     * concatMap 操作符
+     * concatMap 转换操作符
      * <p>
      * 注意: flatMap并不保证事件的顺序，并不是事件1就在事件2的前面.
      * concatMap 可以保证事件的顺序 结果是严格按照上游发送的顺序来发送
