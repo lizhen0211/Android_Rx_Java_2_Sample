@@ -17,4 +17,26 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/solve_backpressure_btn_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:onClick="onSolveBackjianpressure1"
+        android:text="solve backpressure 1(减少上游发送量)"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/test_backpressure_btn" />
+
+    <Button
+        android:id="@+id/solve_backpressure_btn_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:onClick="onSolveBackpressure2"
+        android:text="solve backpressure 2(减慢上游发送速度)"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/solve_backpressure_btn_1" />
+
 </android.support.constraint.ConstraintLayout>
