@@ -23,8 +23,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onOperatorClick(View view) {
-        Intent intent = new Intent(MainActivity.this, OperatorActivity.class);
+    public void onMapOperatorClick(View view) {
+        Intent intent = new Intent(MainActivity.this, MapOperatorActivity.class);
+        startActivity(intent);
+    }
+
+    public void onZipOperatorClick(View view){
+        Intent intent = new Intent(MainActivity.this,ZipOperatorActivity.class);
         startActivity(intent);
     }
 }

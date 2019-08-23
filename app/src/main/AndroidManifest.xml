@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OperatorActivity" />
+        <activity android:name=".ZipOperatorActivity"/>
+        <activity android:name=".MapOperatorActivity" />
         <activity android:name=".SchedulersActivity" />
         <activity android:name=".SimpleDemoActivity" />
         <activity android:name=".MainActivity">

@@ -28,9 +28,9 @@ import retrofit2.Response;
  * 变换操作符
  * Map、FlatMap、concatMap
  */
-public class OperatorActivity extends AppCompatActivity {
+public class MapOperatorActivity extends AppCompatActivity {
 
-    private static String TAG = OperatorActivity.class.getSimpleName();
+    private static String TAG = MapOperatorActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
