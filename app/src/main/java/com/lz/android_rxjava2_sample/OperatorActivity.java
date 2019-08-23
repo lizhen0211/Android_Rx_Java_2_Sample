@@ -24,6 +24,10 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 
+/**
+ * 变换操作符
+ * Map、FlatMap、concatMap
+ */
 public class OperatorActivity extends AppCompatActivity {
 
     private static String TAG = OperatorActivity.class.getSimpleName();
@@ -217,7 +221,7 @@ public class OperatorActivity extends AppCompatActivity {
                 .subscribe(new Consumer<Response<ResponseBody>>() {
                     @Override
                     public void accept(Response<ResponseBody> responseBody) throws Exception {
-                        if(responseBody.isSuccessful()){
+                        if (responseBody.isSuccessful()) {
                             Log.e(TAG, "登录成功");
                         }
                     }
