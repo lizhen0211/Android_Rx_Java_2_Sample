@@ -5,13 +5,19 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.lz.android_rxjava2_sample.net.UserRequest;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
+import retrofit2.Response;
 
 public class ZipOperatorActivity extends AppCompatActivity {
 
@@ -111,6 +117,11 @@ public class ZipOperatorActivity extends AppCompatActivity {
         由于两个observable 都是在主线程执行，所以有了先后顺序*/
     }
 
+    /**
+     * zip 让两个Observable分别在两个IO线程中执行
+     *
+     * @param view
+     */
     public void onTestZipClick2(View view) {
         Observable<Integer> observable1 = Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
@@ -170,5 +181,31 @@ public class ZipOperatorActivity extends AppCompatActivity {
                 Log.e(TAG, "--observer onComplete");
             }
         });
+    }
+
+    public void onGetUserDemoClick(View view) throws Exception {
+        UserRequest request = new UserRequest();
+        Observable<Response<ResponseBody>> observable1 =
+                request.getUserInfo().subscribeOn(Schedulers.io());
+
+        Observable<Response<ResponseBody>> observable2 =
+                request.getUserExtraInfo().subscribeOn(Schedulers.io());
+
+        Disposable disposable = Observable.zip(observable1, observable2,
+                new BiFunction<Response<ResponseBody>, Response<ResponseBody>, String>() {
+                    @Override
+                    public String apply(Response<ResponseBody> userInfoResponse,
+                                        Response<ResponseBody> userExtraInfoResponse) throws Exception {
+
+                        return userInfoResponse.body().string() + userExtraInfoResponse.body().string();
+                    }
+                }).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String infoAndExtraInfo) throws Exception {
+                        //do something;
+                        Log.e(TAG, infoAndExtraInfo);
+                    }
+                });
     }
 }

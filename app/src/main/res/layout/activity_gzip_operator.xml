@@ -28,4 +28,15 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/test_zip_operator_btn" />
 
+    <Button
+        android:id="@+id/get_user_demo_btn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:onClick="onGetUserDemoClick"
+        android:text="get user demo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/test_zip_operator_btn2" />
+
 </android.support.constraint.ConstraintLayout>
