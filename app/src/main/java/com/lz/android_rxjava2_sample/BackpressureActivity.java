@@ -75,7 +75,7 @@ public class BackpressureActivity extends AppCompatActivity {
     }
 
     /**
-     * 通过 减少上游发送量 解决背压
+     * 使用Observable 通过 减少上游发送量 解决背压
      *
      * @param view
      */
@@ -122,7 +122,7 @@ public class BackpressureActivity extends AppCompatActivity {
     }
 
     /**
-     * 通过 减慢上游发送速度 解决背压
+     * 使用Observable 通过 减慢上游发送速度 解决背压
      *
      * @param view
      */

@@ -158,7 +158,7 @@ public class SimpleDemoActivity extends AppCompatActivity {
     }
 
     /**
-     * 如果把Observable 理解为 上游水管，把Observable理解为下游水管
+     * 如果把Observable 理解为 上游水管，把Observer理解为下游水管
      * subscribe 是把两根水管连在一起，dispose则是将两根水管断开
      * 调用dispose()并不会导致上游不再继续发送事件， 上游会继续发送剩余的事件，但下游收不到事件。
      *

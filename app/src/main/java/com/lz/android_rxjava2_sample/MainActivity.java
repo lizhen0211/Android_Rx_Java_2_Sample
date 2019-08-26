@@ -37,4 +37,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, BackpressureActivity.class);
         startActivity(intent);
     }
+
+    public void onFlowableClick(View view) {
+        Intent intent = new Intent(MainActivity.this, FlowableActivity.class);
+        startActivity(intent);
+    }
 }
