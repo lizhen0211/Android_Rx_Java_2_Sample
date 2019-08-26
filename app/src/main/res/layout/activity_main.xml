@@ -72,4 +72,15 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/backpressure_demo_btn" />
 
+    <Button
+        android:id="@+id/flowable_demo2_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:onClick="onFlowable2Click"
+        android:text="flowable demo 2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/flowable_demo_btn" />
+
 </android.support.constraint.ConstraintLayout>
