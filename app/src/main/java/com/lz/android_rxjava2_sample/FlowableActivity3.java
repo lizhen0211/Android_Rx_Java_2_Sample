@@ -119,4 +119,38 @@ public class FlowableActivity3 extends AppCompatActivity {
                     }
                 });
     }
+
+    public void asyncRequestedClick(View view) {
+        Flowable.create(new FlowableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(FlowableEmitter<Integer> emitter) throws Exception {
+                //此处 current requested: 128 内部buffer的长度
+                Log.e(TAG, "current requested: " + emitter.requested());
+            }
+        }, BackpressureStrategy.ERROR)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Integer>() {
+                    @Override
+                    public void onSubscribe(Subscription s) {
+                        Log.e(TAG, "onSubscribe");
+                        s.request(1000);
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+                        Log.e(TAG, "onNext: " + integer);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        Log.w(TAG, "onError: ", t);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.e(TAG, "onComplete");
+                    }
+                });
+    }
 }

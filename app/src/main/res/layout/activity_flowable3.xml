@@ -28,4 +28,16 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/simple_demo_btn" />
 
+    <Button
+        android:id="@+id/async_requested_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:onClick="asyncRequestedClick"
+        android:text="async Requested"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sync_requested_btn" />
+
+
 </android.support.constraint.ConstraintLayout>
