@@ -22,10 +22,6 @@ import io.reactivex.schedulers.Schedulers;
  * 1、上游与下游需处于不同线程。
  * 2、被观察者产生事件的速度需远快与观察者消费事件的速度。
  * <p>
- * 注：
- * 背压策略的解决思路是响应式拉取。
- * 与RxJava观察者模型相反，响应式拉取是观察者主动去被观察者那里拉取事件，
- * 而被观察者则是被动等待通知再发射事件
  */
 public class FlowableActivity2 extends AppCompatActivity {
 
