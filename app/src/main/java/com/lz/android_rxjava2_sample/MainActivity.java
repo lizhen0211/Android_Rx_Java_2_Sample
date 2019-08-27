@@ -47,4 +47,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, FlowableActivity2.class);
         startActivity(intent);
     }
+
+    public void onFlowable3Click(View view) {
+        Intent intent = new Intent(MainActivity.this, FlowableActivity3.class);
+        startActivity(intent);
+    }
 }
