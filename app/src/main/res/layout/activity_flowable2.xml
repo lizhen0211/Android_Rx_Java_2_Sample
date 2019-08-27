@@ -14,7 +14,63 @@
         android:onClick="onBufferStrategyClick"
         android:text="Buffer Strategy"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/buffer_request_btn"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buffer_request_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:onClick="onBufferRequestClick"
+        android:text="Buffer request"
+        app:layout_constraintLeft_toRightOf="@id/buffer_strategy_btn_1"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/drop_strategy_btn_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:onClick="onDropStrategyClick"
+        android:text="Drop Strategy"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/drop_request_btn"
+        app:layout_constraintTop_toBottomOf="@id/buffer_strategy_btn_1" />
+
+    <Button
+        android:id="@+id/drop_request_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:onClick="onDropRequestClick"
+        android:text="Drop Request"
+        app:layout_constraintLeft_toRightOf="@id/drop_strategy_btn_2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buffer_strategy_btn_1" />
+
+
+    <Button
+        android:id="@+id/latest_strategy_btn_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:onClick="onLatestStrategyClick"
+        android:text="latest Strategy"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/latest_request_btn"
+        app:layout_constraintTop_toBottomOf="@id/drop_strategy_btn_2" />
+
+    <Button
+        android:id="@+id/latest_request_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:onClick="onLatestRequestClick"
+        android:text="latest Request"
+        app:layout_constraintLeft_toRightOf="@id/latest_strategy_btn_2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/drop_strategy_btn_2" />
 
 </android.support.constraint.ConstraintLayout>
