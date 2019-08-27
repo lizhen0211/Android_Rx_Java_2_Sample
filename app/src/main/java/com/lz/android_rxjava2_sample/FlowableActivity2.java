@@ -85,7 +85,7 @@ public class FlowableActivity2 extends AppCompatActivity {
             @Override
             public void subscribe(FlowableEmitter<Integer> emitter) throws Exception {
                 for (int i = 0; i < 10000; i++) {
-                    Log.e(TAG, "emit " + i);
+//                    Log.e(TAG, "emit " + i);
                     emitter.onNext(i);
                 }
             }
@@ -97,6 +97,7 @@ public class FlowableActivity2 extends AppCompatActivity {
                     public void onSubscribe(Subscription s) {
                         Log.e(TAG, "onSubscribe");
                         dropSubscription = s;
+                        s.request(128);
                     }
 
                     @Override
@@ -117,7 +118,7 @@ public class FlowableActivity2 extends AppCompatActivity {
     }
 
     public void onDropRequestClick(View view) {
-        dropSubscription.request(228);
+        dropSubscription.request(128);
     }
 
     private Subscription latestSubscription;
@@ -127,7 +128,7 @@ public class FlowableActivity2 extends AppCompatActivity {
             @Override
             public void subscribe(FlowableEmitter<Integer> emitter) throws Exception {
                 for (int i = 0; i < 10000; i++) {
-                    Log.e(TAG, "emit " + i);
+//                    Log.e(TAG, "emit " + i);
                     emitter.onNext(i);
                 }
             }
@@ -139,6 +140,7 @@ public class FlowableActivity2 extends AppCompatActivity {
                     public void onSubscribe(Subscription s) {
                         Log.e(TAG, "onSubscribe");
                         latestSubscription = s;
+                        s.request(128);
                     }
 
                     @Override
@@ -159,6 +161,6 @@ public class FlowableActivity2 extends AppCompatActivity {
     }
 
     public void onLatestRequestClick(View view) {
-        latestSubscription.request(228);
+        latestSubscription.request(128);
     }
 }
