@@ -165,7 +165,7 @@ public class MapOperatorActivity extends AppCompatActivity {
     }
 
     /**
-     * 不适用操作符的登陆方法
+     * 不使用操作符的登陆方法
      *
      * @throws IOException
      */

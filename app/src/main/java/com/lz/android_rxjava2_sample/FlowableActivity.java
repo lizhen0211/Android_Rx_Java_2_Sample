@@ -173,7 +173,9 @@ public class FlowableActivity extends AppCompatActivity {
     }
 
     public void onDemo3RequestClick(View view) {
-        mSubscription.request(1);
+        if (mSubscription != null) {
+            mSubscription.request(1);
+        }
     }
 
     public void onTestFlowableDemo4Click(View view) {
